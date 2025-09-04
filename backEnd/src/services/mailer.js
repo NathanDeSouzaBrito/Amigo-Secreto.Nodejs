@@ -2,8 +2,10 @@
 const nodemailer = require("nodemailer");
 
 async function createTransporter() {
+  //cria uma conta de teste no Ethereal
   const testAccount = await nodemailer.createTestAccount();
 
+  // cria o transporter usando a conta de teste
   const transporter = nodemailer.createTransport({
     host: "smtp.ethereal.email",
     port: 587,
@@ -17,9 +19,11 @@ async function createTransporter() {
   return { transporter, testAccount };
 }
 
+// envia o e-mail com os dados do sorteio
 async function sendAssignment(toEmail, toName, assignedName) {
   const { transporter, testAccount } = await createTransporter();
 
+// configurações do e-mail que vai ser enviado
   const mailOptions = {
     from: `"Secret Santa" <${testAccount.user}>`,
     to: toEmail,
